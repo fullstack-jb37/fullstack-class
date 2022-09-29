@@ -1,0 +1,9 @@
+{
+    "liveSassCompile.settings.includeItems": [
+    
+    ],
+    "css.lint.validProperties": [
+        "composes"
+    ]
+
+}
