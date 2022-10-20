@@ -50,7 +50,6 @@ app.get('/', async function (req, res) {
     console.log('arrived')
     const users = await fs.readFile('./db/users.json')
     setTimeout(function () {
-      return res.status(500).send()
       console.log('callback invoked')
       res.json(JSON.parse(users))
     }, 5000)
