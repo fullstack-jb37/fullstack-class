@@ -1,0 +1,7 @@
+
+
+lastAcc = [].reduce((acc, curr)=>{}, initial)
+
+[newState, dispatch] = useReducer((currState, action)=>{}, initialState)
+
+dispatch(action)

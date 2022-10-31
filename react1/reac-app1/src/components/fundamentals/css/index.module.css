@@ -1,0 +1,25 @@
+.primary {
+    color: blue
+}
+
+.big-font-size {
+    font-size: 72px;
+}
+
+.aquamarine-bg-color {
+    background-color: aquamarine;
+}
+
+
+/* father.css */
+
+.btn {
+    color: blue
+}
+
+/* child.css */
+
+.btn {
+    color: blue;
+    background-color: yellow;
+}
