@@ -1,13 +1,14 @@
-import { Provider } from 'react-redux'
+import React  from 'react'
+// import { Provider } from 'react-redux'
 // import { store } from './redux/index'
-import { store } from './redux-async/index'
+// import { store } from './redux-async/index'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-import Users from './components/redux-component/Users'
+// import Users from './components/redux-component/Users'
 // import AccountManagementConditionally from './components/redux-component/AccountManagementConditionally'
 // import AccountManagementHooks from './components/redux-component/accountManagementHooks'
 // import AccountManagement from './components/redux-component/AccountManagement'
-// import Counter from './components/hooks/useCustom/Counter'
+import Counter from './components/hooks/useCustom/Counter'
 // import AccessingDomElements from './components/hooks/useRef/AccessingDomElements'
 // import PersistingValues from './components/hooks/useRef/PersistingValues'
 // import UseMemoSample from './components/hooks/useMemo/UseMemoSample'
@@ -79,13 +80,13 @@ function App() {
       {/* <UseMemoSample /> */}
       {/* <PersistingValues /> */}
       {/* <AccessingDomElements /> */}
-      {/* <Counter /> */}
-      <Provider store={store}>
+      <Counter />
+      {/* <Provider store={store}> */}
         {/* <AccountManagement /> */}
         {/* <AccountManagementConditionally creditCardDebt /> */}
         {/* <AccountManagementHooks /> */}
-        <Users />
-      </Provider>
+        {/* <Users />
+      </Provider> */}
     </div>
   )
 }
