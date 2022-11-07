@@ -1,10 +1,11 @@
 const { createServer } = require('http')
+const { createReadStream } = require('fs')
 
 const server = createServer((req, res) => {
   try {
-    console.log(req.url)
+    const readStream = createReadStream(`${__dirname}/files/file.txt`, 'utf8')
     res.writeHead(200, { 'Content-Type': 'text/plain' })
-    res.end('Hello From Server')
+    readStream.pipe(res)
   } catch (error) {
     res.writeHead(500, { 'Content-Type': 'text/plain' })
     res.end(error.message)
