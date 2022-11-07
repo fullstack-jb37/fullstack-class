@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getUsers, postUsers } from '../../redux-async/'
+import { getUsers, postUsers } from '../../redux-async'
 
 function Users() {
   const {
