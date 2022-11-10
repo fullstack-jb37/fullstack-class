@@ -19,22 +19,53 @@ const replacer = (key: string, value: any) => {
     return value
 }
 
-app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+// app.use(express.json())
 // console.log(JSON.stringify(person, replacer, 3));
 app.set('json spaces', 10)
 app.set('json replacer', replacer)
 
 app.get('/', (req: Request, res: Response) => {
     try {
-        res.json(person)
+        res.sendFile(`${__dirname}/views/home.html`)
     } catch (error: any) {
         res.status(500).send(error.message)
     }
 })
 
+app.get('/about', (req: Request, res: Response) => {
+    try {
+        res.sendFile(`${__dirname}/views/about.html`)
+    } catch (error: any) {
+        res.status(500).send(error.message)
+    }
+})
+
+app.get('/about-us', (req: Request, res: Response) => {
+    try {
+        res.redirect(`/about`)
+    } catch (error: any) {
+        res.status(500).send(error.message)
+    }
+})
+
+app.post('/', (req: Request, res: Response) => {
+    try {
+        console.log(req.body)
+        const response = {
+            data: req.body,
+            message: 'Successfully got the request'
+        }
+        res.json(response)
+    } catch (error: any) {
+        res.status(500).send(error.message)
+    }
+})
+
+
 app.post('/no-matter-what', (req: Request, res: Response) => {
     try {
-
+        console.log(req.body);
         res.json({ ...person, ...req.body })
     } catch (error: any) {
         res.status(500).send(error.message)
