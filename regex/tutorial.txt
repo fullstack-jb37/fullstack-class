@@ -1,0 +1,68 @@
+https://regex101.com/
+
+Flags:
+• 'g' -> all occurrences
+• 'i' -> case insensitive
+
+Character set:
+• '[ab]cd' -> 'acd' or 'bcd' 
+• '[^ab]cd' -> everything that ends with 'cd' exclude 'acd' or 'bcd'
+
+Ranges:
+• '[a-h]cd' -> must start with a letter between 'a' to 'h', and must end with 'cd'
+• '[a-hA-H]cd' -> must start with a letter between 'a' to 'h' or 'A' to 'H', and must end with 'cd'
+• '[0-9]cd' -> must start with a letter between '0' to '9', and must end with 'cd'
+• '[0-9][0-9][0-9][0-9]' -> 4 digits between '0' to '9'
+
+Repeating Characters:
+• '[0-9]+' -> at least one digit between '0' to '9'
+• '[0-9]{11}' -> 11 digits between '0' to '9'
+• '[0-9]{11, 23}' -> 11 to 23 digits between '0' to '9'
+• '[0-9]{11, }' -> at least 11 digits between '0' to '9'
+
+Meta Characters:
+• '\d' -> '[0-9]'
+• '\w' -> '[0-9a-zA-Z_]'
+• '\s' -> whitespace charectars (spaces, tabs etc)
+• '\t' -> tabs
+• '\d\s\w' -> matches: '2 _' or '5  k' , not matches: '2_' or '2k' 
+• '\d{3}\s\w{5}' -> matches: '234 _poep' or '445  k_k_k' , not matches: '24 _poep' or '445  k_k_'
+
+
+Special Characters:
+• '+' -> one or more quantifier
+• '*' -> 0 or more quantifier
+• '.' -> any character (except the new line character)
+• '?' -> makes a preceding character optional
+• '\' ->  1. '\d' -> '[0-9]', 'd' -> '[d]'
+          2. 'hello\*' -> matches: 'hello*' , not matches -> 'helloooooooo'
+• '[]' ->  the character set
+• '[^]' ->  the negate symbol in character set 
+• '^' ->  should starts with  
+• '$' ->  should ends with  
+
+Special Characters Examples:
+• 'hello?' -> matches: 'hello' or 'hell'
+• 'he?llo?' -> matches: 'hello' or 'hell' or 'hllo' or 'hll'
+• 'h[0-7]?' -> matches: 'h5' or 'h'
+• 'hello\?' -> matches: 'hello?' , not matches -> 'hello'
+• 'hello.' -> matches: 'hellou' , not matches -> 'hello'
+• '.+' -> matches: 'hhdkbjbdshbchdsbhbdhcdj' , not matches -> ''
+• '.*' -> matches: 'hhdkbjbdshbchdsbhbdhcdj' or  ''
+• '[.]+' -> matches: '....' , not matches  'uuuuu'
+• '.+' -> matches: '....' or 'uuuuu'
+• 'A.+' -> matches: 'Ahhdkbjbdshbchdsbhbdhcdj' , not matches -> 'ttfgtyuygyutgyutgtuytyu' or 'A'
+• 'A.*' -> matches: 'Ahhdkbjbdshbchdsbhbdhcdj' or 'A' , not matches -> 'ttfgtyuygyutgyutgtuytyu' 
+• [a-z]{5} -> every five letters matches: 'abcdeabcdeab' (abcde, abcde)
+• ^[a-z]{5}$ -> matches: 'asass', not matches: 'abcdeabcdeab'
+• ^[a-z]{5} -> matches: 'asass', first 5 matches: 'abcdeabcdeab' (abcde)
+• [a-z]{5}$ -> matches: 'asass', last 5 matches: 'abcdeabcdeab' (cdeab)
+
+Alternate Characters:
+• 'p|t' matches 'p' or 't'
+• 'p|tt' matches 'p' or 'tt'
+• '(p|t)t' matches 'pt' or 'tt'
+• '(pole|tole|sholt) A' matches 'pole A' or 'tole A' or 'sholt A'
+• '(pole|tole|sholt) A?' matches 'pole A' or 'tole A' or 'sholt A' or 'A'
+
+ 
