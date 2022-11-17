@@ -20,7 +20,6 @@ app.get('/websites', async function (req, res) {
 
 app.post('/bulk-users', async function (req, res) {
   try {
-    console.log('lsbhjasjxbasjhkxbsajkk')
     const usersFilter = req.body
     const users = JSON.parse(await fs.readFile('./db/users.json'))
     const response = users.filter((user) => usersFilter.includes(user.id))

@@ -1,17 +1,8 @@
 import express, { Application, Request, Response } from 'express'
 import 'dotenv/config'
 import { readFile, writeFile } from 'fs/promises'
-import { responseError } from './tools'
-
-type User = {
-    id: number
-    email?: string
-    first_name: string
-    last_name: string
-    avater: string
-    role: number
-}
-
+import { responseError, doesUserExist } from './tools'
+import { User } from './types'
 const app: Application = express()
 
 const filePath = `${__dirname}/../db/users.json`
@@ -75,24 +66,69 @@ app.post('/', async (req: Request, res: Response) => {
     }
 })
 
-
-app.delete('/:id', async (req: Request, res: Response) => {
+app.put('/:id', async (req: Request, res: Response) => {
     try {
         const userId = +req.params.id
         const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
-        const filteredUses = users.filter(user => user.id !== userId)
 
-        await writeFile(filePath, JSON.stringify(filteredUses, null, 2))
+        if (!doesUserExist(userId, users)) {
+            return res.status(404).send(`User ${userId} not found`)
+        }
 
-        res.send(filteredUses)
+        const updatedUsers = users.map(user => user.id === userId ? { id: userId, ...req.body } : user)
+
+        await writeFile(filePath, JSON.stringify(updatedUsers, null, 2))
+
+        const [user] = updatedUsers.filter(user => user.id === userId)
+        res.send(user)
     } catch (error) {
         responseError(error, res)
     }
 })
 
-const port = +(process.env.APP_PORT || 3009)
-const host = process.env.APP_HOST || 'localhost'
+app.patch('/:id', async (req: Request, res: Response) => {
+    try {
+        const userId = +req.params.id
+        const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
 
-app.listen(port, host, () => {
-    console.log(`Listening on ${host}:${port}`);
+        if (!doesUserExist(userId, users)) {
+            return res.status(404).send(`User ${userId} not found`)
+        }
+
+        const updatedUsers: User[] = users.map(user => user.id === userId ? { ...user, ...req.body } : user)
+
+        await writeFile(filePath, JSON.stringify(updatedUsers, null, 2))
+
+        const [user] = updatedUsers.filter(user => user.id === userId)
+        res.send(user)
+    } catch (error) {
+        responseError(error, res)
+    }
+})
+
+app.delete('/:id', async (req: Request, res: Response) => {
+    try {
+        const userId = +req.params.id
+        const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
+
+        if (!doesUserExist(userId, users)) {
+            return res.status(404).send(`User ${userId} not found`)
+        }
+
+        const filteredUsers = users.filter(user => user.id !== userId)
+
+        await writeFile(filePath, JSON.stringify(filteredUsers, null, 2))
+
+        res.send(filteredUsers)
+    } catch (error) {
+        responseError(error, res)
+    }
+})
+
+app.use((req: Request, res: Response) => res.status(404).send('Endpoint not supported'))
+
+const port = +(process.env.APP_PORT || 3009)
+
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
 })

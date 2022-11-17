@@ -49,17 +49,14 @@
   },
   {
     "id": 8,
-    "email": "yossi@reqres.in",
-    "first_name": "Yossi",
-    "last_name": "Arye",
-    "avatar": "https://reqres.in/img/faces/6-image.jpg",
-    "role": 2
+    "first_name": "Nissan",
+    "last_name": "Khalifa"
   },
   {
     "id": 9,
     "email": "yossi@reqres.in",
-    "first_name": "Nissan",
-    "last_name": "Khalifa",
+    "first_name": "Oron",
+    "last_name": "Maron",
     "avatar": "https://reqres.in/img/faces/6-image.jpg",
     "role": 2
   }
