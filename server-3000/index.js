@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const { resolveSoa } = require('dns')
 const fs = require('fs').promises
 
 const app = express()
@@ -82,6 +83,6 @@ app.post('/', async function (req, res) {
   }
 })
 
-app.listen(3001, () => {
-  console.log('server is listening on port 3001')
+app.listen(3000, () => {
+  console.log('server is listening on port 3000')
 })

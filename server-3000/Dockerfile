@@ -1,12 +1,13 @@
+FROM node:16-alpine
 
-FROM node:17-alpine
+RUN npm install -g nodemon
 
 WORKDIR /src
 
-COPY . .
+COPY package.json .
 
 RUN npm install
 
-EXPOSE 3000
+COPY . .
 
-CMD ["node", "index.js"]
+CMD ["nodemon", "-L", "index.js"]
