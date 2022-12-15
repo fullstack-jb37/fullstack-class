@@ -2,6 +2,8 @@ import 'dotenv/config'
 import express, { Request, Response, Application } from 'express'
 import { AppDataSource } from './data-source'
 import customers from './routers/customers'
+import orders from './routers/orders'
+import products from './routers/products'
 ;(async () => {
   try {
     await AppDataSource.initialize()
@@ -13,6 +15,8 @@ import customers from './routers/customers'
     app.use(express.json())
 
     app.use('/customers', customers)
+    app.use('/orders', orders)
+    app.use('/products', products)
 
     app.use((req: Request, res: Response) => {
       res.status(400).send('Resource not found!')

@@ -1,5 +1,6 @@
-import { Column, Entity, BaseEntity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Column, Entity, BaseEntity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm'
 import { Customer } from './Customer'
+import { Product } from './Product';
 
 enum Currency {
   ILS = 'ILS',
@@ -41,4 +42,18 @@ export class Order extends BaseEntity {
   @ManyToOne(()=> Customer, customer => customer.orders, {onDelete: "RESTRICT", onUpdate: "CASCADE"})
   @JoinColumn({name: 'customer_id'})
   customer: Customer
+
+  @ManyToMany(() => Product, (product) => product.orders)
+  @JoinTable({
+    name: 'orders-products',
+    joinColumn: {
+      name: 'order_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'product_id',
+      referencedColumnName: 'id',
+    },
+  })
+  products: Product[]
 }
