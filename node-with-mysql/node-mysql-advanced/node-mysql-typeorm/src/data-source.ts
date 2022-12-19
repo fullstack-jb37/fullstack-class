@@ -4,7 +4,6 @@ import { RDBMS_MYSQL } from './constants'
 import { Order } from './entity/Order'
 import { Customer } from './entity/Customer'
 import { Product } from './entity/Product'
-import { Supplier } from './entity/Supplier'
 
 export const AppDataSource = new DataSource({
   type: RDBMS_MYSQL,
@@ -15,7 +14,7 @@ export const AppDataSource = new DataSource({
   database: process.env.MYSQL_DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [Order, Customer, Product, Supplier],
+  entities: [Order, Customer, Product],
   migrations: [],
   subscribers: [],
 })

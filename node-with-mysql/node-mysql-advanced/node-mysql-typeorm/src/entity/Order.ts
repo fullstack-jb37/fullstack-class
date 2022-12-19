@@ -18,11 +18,8 @@ export class Order extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
-  quantity: number
-
   @Column('decimal', { precision: 10, scale: 2 })
-  unit_price: number
+  price: number
 
   @Column({ type: 'enum', enum: Currency })
   currency: Currency
