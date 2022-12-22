@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express'
-import { createOrder, findOrders, deleteOrder } from './../controllers/orders'
+import { NOT_FOUND } from '../constants'
+import { createOrder, findOrders, deleteOrder, updateOrder, joinAndGroupbyOrders } from './../controllers/orders'
 
 const router: Router = Router()
 
@@ -25,6 +26,17 @@ router.post('/', async (req: Request, res: Response) => {
   }
 })
 
+router.post('/group-orders', async (req: Request, res: Response) => {
+    try {
+      const { status, lastNameArr } = req.body
+      const responseData = await joinAndGroupbyOrders(status, lastNameArr)
+      responseData.length ? res.send(responseData) : res.sendStatus(404)
+    } catch (error) {
+      console.error(error)
+      res.sendStatus(500)
+    }
+  })
+
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const withRelations = req.query.withRelations === 'true'
@@ -44,6 +56,19 @@ router.get('/', async (req: Request, res: Response) => {
     res.sendStatus(500)
   }
 })
+
+
+router.patch('/:id', async (req: Request, res: Response) => {
+    try {
+      const responseData = await updateOrder(+req.params.id, req.body)
+      responseData === NOT_FOUND
+        ? res.sendStatus(404)
+        : res.send(responseData)
+    } catch (error) {
+      console.error(error)
+      res.sendStatus(500)
+    }
+  })
 
 router.delete('/:id', async (req: Request, res: Response) => {
   try {

@@ -1,7 +1,7 @@
 import { Column, Entity, BaseEntity, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm'
 import { Order } from './Order';
 
-enum Currency {
+export enum Currency {
   ILS = 'ILS',
   USD = 'USD',
   EUR = 'EUR',
@@ -24,6 +24,6 @@ export class Product extends BaseEntity {
   @Column({ type: 'enum', enum: Currency })
   currency: Currency
 
-  @ManyToMany(() => Order, (order) => order.products)
+  @ManyToMany(() => Order, (order) => order.products, {onDelete: "CASCADE", onUpdate: "CASCADE"})
   orders: Order[]
 }

@@ -8,7 +8,7 @@ enum Currency {
   EUR = 'EUR',
 }
 
-enum Status {
+export enum Status {
   SUCCEEDED = 'succeeded',
   FAILED = 'failed',
 }
