@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "email": "george.bluth@reqres.in",
+    "username": "George",
+    "password": "Bluth",
+    "isSuperAdmin": true
+  },
+  {
+    "id": 2,
+    "email": "Oron.bluth@reqres.in",
+    "username": "Oron",
+    "password": "Bluth",
+    "isSuperAdmin": true
+  },
+  {
+    "id": 3,
+    "email": "Nitsan.bluth@reqres.in",
+    "username": "Nitsan.bluth@reqres.in",
+    "password": "Bluth",
+    "isSuperAdmin": true
+  }
+]
