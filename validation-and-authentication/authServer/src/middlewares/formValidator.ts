@@ -1,9 +1,13 @@
-import { body, ValidationChain} from 'express-validator'
+import { body, ValidationChain } from 'express-validator'
 
-const formValidator: ValidationChain[] = [
-    body('username').notEmpty().withMessage('Username is required'),
-    body('email').isEmail().withMessage('Invalid email'),
-    body('isSuperAdmin').isBoolean().withMessage('isSuperAdmin is required and must be a boolean')
+const validator: ValidationChain[] = [
+  body('email').isEmail().withMessage('Invalid email'),
 ]
 
-export default formValidator
+const registerValidator = [
+  ...validator,
+  body('username').notEmpty().withMessage('Username is required'),
+  body('role').isIn(['cto', 'admin', 'member']).withMessage('Invalid role'),
+]
+
+export { registerValidator, validator as loginValidator }

@@ -4,20 +4,55 @@
     "email": "george.bluth@reqres.in",
     "username": "George",
     "password": "Bluth",
-    "isSuperAdmin": true
+    "role": "cto"
   },
   {
     "id": 2,
-    "email": "Oron.bluth@reqres.in",
-    "username": "Oron",
-    "password": "Bluth",
-    "isSuperAdmin": true
-  },
-  {
-    "id": 3,
     "email": "Nitsan.bluth@reqres.in",
     "username": "Nitsan.bluth@reqres.in",
     "password": "Bluth",
-    "isSuperAdmin": true
+    "role": "admin"
+  },
+  {
+    "id": 3,
+    "email": "Tom.bluth@reqres.in",
+    "username": "Oron",
+    "password": "Yossi&Oron76",
+    "role": "admin"
+  },
+  {
+    "id": 4,
+    "email": "Shalom.bluth@reqres.in",
+    "username": "cto",
+    "password": "Yoss45ron76",
+    "role": "member"
+  },
+  {
+    "id": 5,
+    "email": "Tomer.bluth@reqres.in",
+    "username": "Cheif R&D",
+    "password": "Yoss45ron76",
+    "role": "admin"
+  },
+  {
+    "id": 6,
+    "email": "NissanTheGreatest.bluth@reqres.in",
+    "username": "Cheif customer success",
+    "password": "$2a$10$ETD/QsSsmsXs15B8l0SFPejB7Kkbl8baAWwT0F46wjZ4yYbfqM5dy",
+    "role": "admin"
+  },
+  {
+    "id": 7,
+    "email": "Nissan1TheGreatest.bluth@reqres.in",
+    "username": "Cheif customer success 1",
+    "password": "$2a$10$nSI3dx4lHEiFWdFB7/89TOrm/3oKTQsQAzbbMMvx71aBUU9NXVGRC",
+    "role": "admin"
+  },
+  {
+    "id": 8,
+    "email": "amitTheGreatest.bluth@reqres.in",
+    "username": "amit1",
+    "password": "$2a$10$V23K5/Zv8rc0fxUCCIKTyuHwUgsFAsPbnmgEcdNAJ3mOMXX66VGx2",
+    "role": "member"
   }
 ]
