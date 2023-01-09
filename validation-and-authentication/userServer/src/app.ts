@@ -3,132 +3,161 @@ import 'dotenv/config'
 import { readFile, writeFile } from 'fs/promises'
 import { responseError, doesUserExist } from './tools'
 import { User } from './types'
+import authenticateCto from './middlewares/authenticateCto'
+import authenticateAdmin from './middlewares/authenticateAdmin'
+import jwtVerify from './middlewares/jwtVerify'
 const app: Application = express()
 
-const filePath = `${__dirname}/../db/users.json`
+const filePath = `${process.cwd()}/../db/users.json`
 
 app.use(express.json())
 
-app.get('/', async (req: Request, res: Response) => {
-    try {
-        const firstName = req.query.first_name
-        const lastName = req.query.last_name
-        const email = req.query.email
+app.get('/', jwtVerify, async (req: Request, res: Response) => {
+  try {
+    const firstName = req.query.first_name
+    const lastName = req.query.last_name
+    const email = req.query.email
 
-        const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
+    const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
 
-        if (!firstName && !lastName && !email) {
-            return res.send(users)
-        }
-
-        const filterdUsers = users.filter(user =>
-            (!firstName || firstName && user.first_name === firstName) &&
-            (!lastName || lastName && user.last_name === lastName) &&
-            (!email || email && user.email === email)
-        )
-
-        filterdUsers.length ? res.send(filterdUsers) : res.status(404).send({ message: 'Users not found with your criteria' })
-    } catch (error) {
-        responseError(error, res)
+    if (!firstName && !lastName && !email) {
+      return res.send(users)
     }
+
+    const filterdUsers = users.filter(
+      (user) =>
+        (!firstName || (firstName && user.first_name === firstName)) &&
+        (!lastName || (lastName && user.last_name === lastName)) &&
+        (!email || (email && user.email === email))
+    )
+
+    filterdUsers.length
+      ? res.send(filterdUsers)
+      : res.status(404).send({ message: 'Users not found with your criteria' })
+  } catch (error) {
+    responseError(error, res)
+  }
 })
 
-app.get('/:id', async (req: Request, res: Response) => {
-    try {
-        const userId = +req.params.id
-        const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
-        const [user] = users.filter(user => user.id === userId)
+app.get('/:id', jwtVerify,  async (req: Request, res: Response) => {
+  try {
+    const userId = +req.params.id
+    const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
+    const [user] = users.filter((user) => user.id === userId)
 
-        user ? res.send(user) : res.status(404).send(`User ${userId} not found`)
-    } catch (error) {
-        responseError(error, res)
-    }
+    user ? res.send(user) : res.status(404).send(`User ${userId} not found`)
+  } catch (error) {
+    responseError(error, res)
+  }
 })
 
-app.post('/', async (req: Request, res: Response) => {
+app.post(
+  '/',
+  [jwtVerify, authenticateAdmin],
+  async (req: Request, res: Response) => {
     try {
-        const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
+      const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
 
-        const id: number = users.reduce((max: number, currentValue: User) =>
-            max > currentValue.id ? max : currentValue.id
-            , 0)
+      const id: number = users.reduce(
+        (max: number, currentValue: User) =>
+          max > currentValue.id ? max : currentValue.id,
+        0
+      )
 
-        const newUser = { id: id + 1, ...req.body }
+      const newUser = { id: id + 1, ...req.body }
 
-        users.push(newUser)
+      users.push(newUser)
 
-        await writeFile(filePath, JSON.stringify(users, null, 2))
+      await writeFile(filePath, JSON.stringify(users, null, 2))
 
-        res.send(newUser)
-
+      res.send(newUser)
     } catch (error) {
-        responseError(error, res)
+      responseError(error, res)
     }
-})
+  }
+)
 
-app.put('/:id', async (req: Request, res: Response) => {
+app.put(
+  '/:id',
+  [jwtVerify, authenticateAdmin],
+  async (req: Request, res: Response) => {
     try {
-        const userId = +req.params.id
-        const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
+      const userId = +req.params.id
+      const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
 
-        if (!doesUserExist(userId, users)) {
-            return res.status(404).send(`User ${userId} not found`)
-        }
+      if (!doesUserExist(userId, users)) {
+        return res.status(404).send(`User ${userId} not found`)
+      }
 
-        const updatedUsers = users.map(user => user.id === userId ? { id: userId, ...req.body } : user)
+      const updatedUsers = users.map((user) =>
+        user.id === userId ? { id: userId, ...req.body } : user
+      )
 
-        await writeFile(filePath, JSON.stringify(updatedUsers, null, 2))
+      await writeFile(filePath, JSON.stringify(updatedUsers, null, 2))
 
-        const [user] = updatedUsers.filter(user => user.id === userId)
-        res.send(user)
+      const [user] = updatedUsers.filter((user) => user.id === userId)
+      res.send(user)
     } catch (error) {
-        responseError(error, res)
+      responseError(error, res)
     }
-})
+  }
+)
 
-app.patch('/:id', async (req: Request, res: Response) => {
+app.patch(
+  '/:id',
+  [jwtVerify, authenticateAdmin],
+  async (req: Request, res: Response) => {
     try {
-        const userId = +req.params.id
-        const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
+      const userId = +req.params.id
+      const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
 
-        if (!doesUserExist(userId, users)) {
-            return res.status(404).send(`User ${userId} not found`)
-        }
+      if (!doesUserExist(userId, users)) {
+        return res.status(404).send(`User ${userId} not found`)
+      }
 
-        const updatedUsers: User[] = users.map(user => user.id === userId ? { ...user, ...req.body } : user)
+      const updatedUsers: User[] = users.map((user) =>
+        user.id === userId ? { ...user, ...req.body } : user
+      )
 
-        await writeFile(filePath, JSON.stringify(updatedUsers, null, 2))
+      await writeFile(filePath, JSON.stringify(updatedUsers, null, 2))
 
-        const [user] = updatedUsers.filter(user => user.id === userId)
-        res.send(user)
+      const [user] = updatedUsers.filter((user) => user.id === userId)
+      res.send(user)
     } catch (error) {
-        responseError(error, res)
+      responseError(error, res)
     }
-})
+  }
+)
 
-app.delete('/:id', async (req: Request, res: Response) => {
+app.delete(
+  '/:id',
+  [jwtVerify, authenticateCto],
+  async (req: Request, res: Response) => {
     try {
-        const userId = +req.params.id
-        const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
+      const userId = +req.params.id
+      const users: User[] = JSON.parse(await readFile(filePath, 'utf8'))
 
-        if (!doesUserExist(userId, users)) {
-            return res.status(404).send(`User ${userId} not found`)
-        }
+      if (!doesUserExist(userId, users)) {
+        return res.status(404).send(`User ${userId} not found`)
+      }
 
-        const filteredUsers = users.filter(user => user.id !== userId)
+      const filteredUsers = users.filter((user) => user.id !== userId)
 
-        await writeFile(filePath, JSON.stringify(filteredUsers, null, 2))
+      await writeFile(filePath, JSON.stringify(filteredUsers, null, 2))
 
-        res.send(filteredUsers)
+      res.send(filteredUsers)
     } catch (error) {
-        responseError(error, res)
+      responseError(error, res)
     }
-})
+  }
+)
 
-app.use((req: Request, res: Response) => res.status(404).send('Endpoint not supported'))
+app.use((req: Request, res: Response) =>
+  res.status(404).send('Endpoint not supported')
+)
 
 const port = +(process.env.APP_PORT || 3009)
 
 app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+  console.log(`Listening on port ${port}`)
 })

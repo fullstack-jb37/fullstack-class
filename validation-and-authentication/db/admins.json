@@ -54,5 +54,19 @@
     "username": "amit1",
     "password": "$2a$10$V23K5/Zv8rc0fxUCCIKTyuHwUgsFAsPbnmgEcdNAJ3mOMXX66VGx2",
     "role": "member"
+  },
+  {
+    "id": 9,
+    "email": "bluth@reqres.in",
+    "username": "bluth",
+    "password": "$2a$10$yMciaRYoeRtEBZvtGWQYi.9AbKNKIV/lgQ2BApHqxMYNu12Irx2Om",
+    "role": "admin"
+  },
+  {
+    "id": 10,
+    "email": "oron@greatest.in",
+    "username": "oronTheGreatest",
+    "password": "$2a$10$00fcmrFvqN1W.V7RzNDTEu25xjKCbOaIwfx1IN.3Zqdz1OXkop/I2",
+    "role": "cto"
   }
 ]

@@ -11,12 +11,12 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     const adminExisted: Admin[] = admins.filter(
       (admin: Admin) =>
-        (req.url === '/register' && admin.username === req.body.username) ||
+        ((req.url === '/register' || req.url === '/register/') && admin.username === req.body.username) ||
         admin.email === req.body.email
     )
 
     if (adminExisted.length) {
-      if (req.url === '/register') {
+      if (req.url === '/register' || req.url === '/register/') {
         return res
           .status(400)
           .send({ errors: ['username or email already exists'] })
@@ -31,7 +31,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         return res.sendStatus(401)
       }
     }
-    console.log("dfgsdgfsdgbsdgfg")
     next()
   } catch (error) {
     console.error(error)
