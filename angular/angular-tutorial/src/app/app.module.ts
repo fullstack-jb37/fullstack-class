@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,13 @@ import { TwoWayBindingComponent } from './two-way-binding/two-way-binding.compon
 import { StructuralDirectiveNgifComponent } from './structural-directive-ngif/structural-directive-ngif.component';
 import { StructuralDirectiveNgswitchComponent } from './structural-directive-ngswitch/structural-directive-ngswitch.component';
 import { StructuralDirectiveNgforComponent } from './structural-directive-ngfor/structural-directive-ngfor.component';
+import { ParentToChildComponent } from './parent-to-child/parent-to-child.component';
+import { ChildToParentComponent } from './child-to-parent/child-to-parent.component';
+import { UsersWithDependencyInjectionComponent } from './users-with-dependency-injection/users-with-dependency-injection.component';
+import { UsersDetailsWithDependencyInjectionComponent } from './users-details-with-dependency-injection/users-details-with-dependency-injection.component';
+import { ObservableIntroductionComponent } from './observable-introduction/observable-introduction.component';
+import { WebsitesDetailsWithDependencyInjectionComponent } from './websites-details-with-dependency-injection/websites-details-with-dependency-injection.component';
+// import { UsersService } from 'src/services/users.service';
 
 
 @NgModule({
@@ -31,11 +39,18 @@ import { StructuralDirectiveNgforComponent } from './structural-directive-ngfor/
     StructuralDirectiveNgifComponent,
     StructuralDirectiveNgswitchComponent,
     StructuralDirectiveNgforComponent,
+    ParentToChildComponent,
+    ChildToParentComponent,
+    UsersWithDependencyInjectionComponent,
+    UsersDetailsWithDependencyInjectionComponent,
+    ObservableIntroductionComponent,
+    WebsitesDetailsWithDependencyInjectionComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
