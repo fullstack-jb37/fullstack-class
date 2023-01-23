@@ -22,6 +22,14 @@ import { UsersWithDependencyInjectionComponent } from './users-with-dependency-i
 import { UsersDetailsWithDependencyInjectionComponent } from './users-details-with-dependency-injection/users-details-with-dependency-injection.component';
 import { ObservableIntroductionComponent } from './observable-introduction/observable-introduction.component';
 import { WebsitesDetailsWithDependencyInjectionComponent } from './websites-details-with-dependency-injection/websites-details-with-dependency-injection.component';
+import { WildcardRouteComponent } from './wildcard-route/wildcard-route.component';
+import { RouteParametersComponent } from './route-parameters/route-parameters.component';
+import { PipesComponent } from './pipes/pipes.component';
+import { ParentOfChildRoutesComponent } from './parent-of-child-routes/parent-of-child-routes.component';
+import { ChildOneOfChildRoutesComponent } from './child-one-of-child-routes/child-one-of-child-routes.component';
+import { ChildTwoOfChildRoutesComponent } from './child-two-of-child-routes/child-two-of-child-routes.component';
+import { ChildOfLifeCycleHookComponent } from './child-of-life-cycle-hook/child-of-life-cycle-hook.component';
+import { ParentOfLifeCycleHookComponent } from './parent-of-life-cycle-hook/parent-of-life-cycle-hook.component';
 // import { UsersService } from 'src/services/users.service';
 
 
@@ -45,6 +53,14 @@ import { WebsitesDetailsWithDependencyInjectionComponent } from './websites-deta
     UsersDetailsWithDependencyInjectionComponent,
     ObservableIntroductionComponent,
     WebsitesDetailsWithDependencyInjectionComponent,
+    WildcardRouteComponent,
+    RouteParametersComponent,
+    PipesComponent,
+    ParentOfChildRoutesComponent,
+    ChildOneOfChildRoutesComponent,
+    ChildTwoOfChildRoutesComponent,
+    ChildOfLifeCycleHookComponent,
+    ParentOfLifeCycleHookComponent,
   ],
   imports: [
     BrowserModule,

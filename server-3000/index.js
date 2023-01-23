@@ -52,7 +52,7 @@ app.get('/', async function (req, res) {
     setTimeout(function () {
       console.log('callback invoked')
       res.json(JSON.parse(users))
-    }, 5000)
+    }, 0)
     console.log('after subscription to setTimeout')
   } catch (error) {
     return res.status(500).send(error.message)

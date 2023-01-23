@@ -8,10 +8,15 @@ import { User } from 'src/interfaces/User';
 })
 export class UsersService {
   private getUsersUrl = 'http://localhost:3000'
+  private getSpecificUsersUrl = 'http://localhost:3000/bulk-users'
   constructor(private httpClient: HttpClient) {}
 
   getUsers() : Observable<User[]>{
     return this.httpClient.get<User[]>(this.getUsersUrl)
+  }
+
+  getSpecificUsers(usersIds: number[]) : Observable<User[]>{
+    return this.httpClient.post<User[]>(this.getSpecificUsersUrl, usersIds)
   }
 //   getUsers() {
 //     return [
