@@ -10,9 +10,9 @@ export const options: Options = {
         },
         servers: [
             {
-                url: `http://localhost:${process.env.APP_PORT}`
+                url: `http://localhost:3000`
             }
         ]
     },
-    apis: ['./open-api.yaml', './app.ts']
+    apis: ['./open-api.yaml']
 }

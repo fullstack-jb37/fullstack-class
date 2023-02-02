@@ -59,5 +59,13 @@
     "last_name": "Maron",
     "avatar": "https://reqres.in/img/faces/6-image.jpg",
     "role": 2
+  },
+  {
+    "id": 10,
+    "email": "shalom@reqres.in",
+    "first_name": "Janet",
+    "last_name": "Weaver",
+    "avatar": "https://reqres.in/img/faces/2-image.jpg",
+    "role": 1
   }
 ]
