@@ -14,5 +14,5 @@ export const options: Options = {
             }
         ]
     },
-    apis: ['./open-api.yaml']
+    apis: ['./open-api.yaml', 'app.ts']
 }

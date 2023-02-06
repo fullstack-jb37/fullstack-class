@@ -62,6 +62,30 @@ components:
         last_name: Weaver
         avatar: https://reqres.in/img/faces/2-image.jpg
         role: 1
+    UserOnSoftMode: 
+      type: object
+      properties: 
+        first_name: 
+          type: string
+          description: The user first name
+        last_name: 
+          type: string
+          description: The user last name
+        email: 
+          type: string
+          description: The user email
+        avatar: 
+          type: string
+          description: The user avatar
+        role: 
+          type: number
+          description: The user role
+      example: 
+        email: janet.weaver@reqres.in
+        first_name: Janet
+        last_name: Weaver
+        avatar: https://reqres.in/img/faces/2-image.jpg
+        role: 1
   responses: 
     notFoundError:
       description: Not found error message
@@ -167,6 +191,78 @@ paths:
       responses: 
         200: 
           $ref: '#/components/responses/user'
+        400:
+          $ref: '#/components/responses/badRequestError'
+        404:
+          $ref: '#/components/responses/notFoundError'
+        500:
+          $ref: '#/components/responses/internalServerError'
+    put:
+      summary: Put user by id
+      tags: 
+        - Users
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The user id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/UserOnSoftMode'
+      responses: 
+        200: 
+          $ref: '#/components/responses/user'
+        400:
+          $ref: '#/components/responses/badRequestError'
+        404:
+          $ref: '#/components/responses/notFoundError'
+        500:
+          $ref: '#/components/responses/internalServerError'
+    patch:
+      summary: Patch user by id
+      tags: 
+        - Users
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The user id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/UserOnSoftMode'
+      responses: 
+        200: 
+          $ref: '#/components/responses/user'
+        400:
+          $ref: '#/components/responses/badRequestError'
+        404:
+          $ref: '#/components/responses/notFoundError'
+        500:
+          $ref: '#/components/responses/internalServerError'
+    delete:
+      summary: Delete user by id
+      tags: 
+        - Users
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The user id
+          schema:
+            type: string
+      responses: 
+        200: 
+          $ref: '#/components/responses/users'
         400:
           $ref: '#/components/responses/badRequestError'
         404:

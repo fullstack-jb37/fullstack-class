@@ -13,6 +13,28 @@ const app: Application = express();
 app.use(express.json());
 
 app.use("/api-docs", serve, setup(specs));
+
+/**
+ * @swagger
+ * tags: 
+ *   name: Greet
+ *   description: Greeting API
+ * /:
+ *   get:
+ *     summary: Returns greet from the server
+ *     tags: [Greet]
+ *     responses:
+ *       200: 
+ *         description: A greet from the server 
+ *         content: 
+ *           text/plain:
+ *             schema:
+ *               type: string
+ */
+app.get('/', (req:Request, res: Response)=> {
+  res.send('Welcome to our home page')
+})
+
 app.use(
   OpenApiValidator.middleware({
     apiSpec: "./open-api.yaml",
@@ -22,6 +44,8 @@ app.use(
 );
 
 app.use("/users", usersRouter);
+
+
 
 app.use((req: Request, res: Response) =>
   res.status(404).send("Endpoint not supported")
